@@ -1,6 +1,6 @@
 import React from 'react';
 
-function ShoppingCart() {
+function ShoppingCart(props) {
   return (
     <div className="column">
       <h3 className="title is-4">Shopping Cart</h3>
@@ -14,20 +14,18 @@ function ShoppingCart() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>New Balance</td>
-            <td>550</td>
-            <td>1</td>
-            <td><button className="button is-danger is-small">-</button></td>
-          </tr>
-          <tr>
-            <td>Vans</td>
-            <td>2000</td>
-            <td>1</td>
-            <td><button className="button is-danger is-small">-</button></td>
-          </tr>
+          {props.cartItems.map((cartItem, index) => (
+            <tr key={index}>
+              <td>{cartItem.product.name}</td>
+              <td>{cartItem.product.price}</td>
+              <td>{cartItem.quantity}</td>
+              <td>
+                <button className="button is-danger is-small">-</button>
+              </td>
+            </tr>
+          ))}
         </tbody>
-      </table>G
+      </table>
       <h3>Total : Rp 0</h3>
     </div>
   )

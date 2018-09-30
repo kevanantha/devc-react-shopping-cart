@@ -1,20 +1,30 @@
 import React from 'react';
 
-function Product() {
+function Product(props) {
   return (
     <div className="column">
       <div className="card">
         <div className="card-image">
           <figure className="image is-4by3">
-            <img alt="Vans" src="https://media.journeys.com/images/products/1_259094_ZM.JPG" />
+            <img alt="Vans" src={props.product.imageSrc} />
           </figure>
         </div>
         <div className="card-content">
           <div className="media">
             <div className="media-content">
-              <p className="title is-4">Vans</p>
-              <div className="content">aman<br /></div>
-              <h5>Rp 2.000</h5><button className="button is-primary">Add To Cart</button>
+              <p className="title is-4">{props.product.name}</p>
+              <div className="content">{props.product.desc}<br /></div>
+              <h5>Rp {props.product.price}</h5>
+              <button
+                className="button is-primary"
+                onClick={e => {
+                  e.preventDefault();
+                  console.log(props.product);
+                  props.onAddItemToCart(props.product);
+                }}
+              >
+                Add To Cart
+              </button>
             </div>
           </div>
         </div>
