@@ -19,7 +19,6 @@ function Product(props) {
                 className="button is-primary"
                 onClick={e => {
                   e.preventDefault();
-                  console.log(props.product);
                   props.onAddItemToCart(props.product);
                 }}
               >

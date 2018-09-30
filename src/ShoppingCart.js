@@ -1,6 +1,10 @@
 import React from 'react';
 
 function ShoppingCart(props) {
+  const totalPrice = props.cartItems.reduce((carrier, cartItem) => {
+    return carrier + cartItem.quantity * cartItem.product.price;
+  }, 0)
+
   return (
     <div className="column">
       <h3 className="title is-4">Shopping Cart</h3>
@@ -20,13 +24,21 @@ function ShoppingCart(props) {
               <td>{cartItem.product.price}</td>
               <td>{cartItem.quantity}</td>
               <td>
-                <button className="button is-danger is-small">-</button>
+                <button
+                  className="button is-danger is-small"
+                  onClick={e => {
+                    e.preventDefault();
+                    props.onRevomeItemFromCart(cartItem.product)
+                  }}
+                >
+                  -
+                </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      <h3>Total : Rp 0</h3>
+      <h3>Total : Rp {totalPrice}</h3>
     </div>
   )
 }

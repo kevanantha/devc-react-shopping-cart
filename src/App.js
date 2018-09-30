@@ -32,6 +32,24 @@ class App extends Component {
     this.setState({ cartItems })
   }
 
+  handleRemoveItemFromCart = (product) => {
+    const cartItems = this.state.cartItems;
+
+    const selectedItemIndex = cartItems.findIndex(cartItem => {
+      return cartItem.product.id === product.id;
+    })
+
+    const selectedItem = cartItems[selectedItemIndex];
+
+    if (selectedItem.quantity > 1) {
+      selectedItem.quantity--
+    } else {
+      cartItems.splice(selectedItemIndex, 1);
+    }
+
+    this.setState({ cartItems: cartItems })
+  }
+
   componentDidMount() {
     fetch('http://product-list.glitch.me/')
       .then(res => res.json())
@@ -60,7 +78,10 @@ class App extends Component {
             </div>
           </div>
 
-          <ShoppingCart cartItems={this.state.cartItems}/>
+          <ShoppingCart
+            cartItems={this.state.cartItems}
+            onRevomeItemFromCart={this.handleRemoveItemFromCart}
+          />
 
         </div>
       </div>
